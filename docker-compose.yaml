@@ -1,0 +1,24 @@
+version: "3.8"
+volumes:
+    postgres_data_volume:
+      driver: local
+services:
+    db:
+        image: postgres:14
+        env_file:
+            - .env
+        volumes:
+            - postgres_data_volume:/var/lib/postgresql/data
+        ports:
+            - "5435:5432"
+    # app:
+    #     restart: unless-stopped
+    #     image: node:18
+    #     ports: 
+    #         - "3099:3099"
+    #     command: ["npm", "run", "dev"]
+    #     working_dir: /app
+    #     volumes: 
+    #         - ./:/app
+    #     env_file:
+    #         - .env
