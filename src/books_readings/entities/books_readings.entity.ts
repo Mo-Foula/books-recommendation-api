@@ -1,32 +1,31 @@
-import { Role } from 'src/auth/roles/entities/role.entity'
+import { Book } from 'src/books/entities/book.entity'
 import { UsersProfiles } from 'src/users_profiles/entities/users_profiles.entity'
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
+  Entity,
+  JoinColumn,
   ManyToOne,
-  OneToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm'
 
 @Entity()
-export class User {
+export class BooksReadings {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
-  email: string
+  @ManyToOne(() => Book)
+  @JoinColumn()
+  book: Book
+
+  @ManyToOne(() => UsersProfiles)
+  @JoinColumn()
+  user: UsersProfiles
 
   @Column()
-  phone: string
+  firstPage: number
 
   @Column()
-  password: string
-
-  @OneToOne(() => UsersProfiles)
-  profile: UsersProfiles
-
-  @ManyToOne(() => Role, (role) => role.users)
-  role: Role
+  pagesCount: number
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date

@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { jwtConstants } from './constants'
+import { canPassAuthGuards, jwtConstants } from './constants'
 import { Request } from 'express'
 
 @Injectable()
@@ -14,6 +14,7 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest()
+    if (canPassAuthGuards.indexOf(request.originalUrl) !== -1) return true
     const token = this.extractTokenFromHeader(request)
     if (!token) {
       throw new UnauthorizedException()

@@ -9,12 +9,6 @@ import {
 
 @Entity()
 export class Claim {
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date
-
   @PrimaryGeneratedColumn()
   id: number
 
@@ -39,4 +33,10 @@ export class Claim {
   // TODO test this way
   @ManyToMany(() => Role)
   roles: Role[]
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date
 }

@@ -1,30 +1,35 @@
-import { Claim } from 'src/auth/claims/entities/claim.entity'
 import { User } from 'src/auth/users/entities/user.entity'
 import {
-  Entity,
   Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
 } from 'typeorm'
 
 @Entity()
-export class Role {
+export class UsersProfiles {
   @PrimaryGeneratedColumn()
   id: number
 
   @Column()
-  name: string
+  firstName: string
 
-  @OneToMany(() => User, (user) => user.role)
-  users: User[]
+  @Column()
+  lastName: string
 
-  @ManyToMany(() => Claim)
-  @JoinTable({
-    name: 'roles_claims',
-  })
-  claims: Claim[]
+  @Column()
+  gender: string
+
+  @Column()
+  address: string
+
+  @Column({ type: 'date' })
+  birthDate: Date
+
+  @OneToOne(() => User)
+  @JoinColumn()
+  private authUser: User
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date

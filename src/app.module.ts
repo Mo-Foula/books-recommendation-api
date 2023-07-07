@@ -4,10 +4,11 @@ import { AppService } from './app.service'
 import { BooksModule } from './books/books.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import * as dotenv from 'dotenv'
-import { Book } from './books/entities/book.entity'
 import { AuthModule } from './auth/auth.module'
-import { Claim } from './auth/claims/entities/claim.entity'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
+import { UsersProfilesModule } from './users_profiles/users_profiles.module'
+import { BooksReadingsModule } from './books_readings/books_readings.module';
+import { CategoriesModule } from './categories/categories.module';
 
 dotenv.config()
 const {
@@ -33,6 +34,9 @@ const {
       namingStrategy: new SnakeNamingStrategy(),
     }),
     AuthModule,
+    UsersProfilesModule,
+    BooksReadingsModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
