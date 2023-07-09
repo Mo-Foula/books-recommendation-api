@@ -29,7 +29,7 @@ export class UsersProfiles {
 
   @OneToOne(() => User)
   @JoinColumn()
-  private authUser: User
+  authUser: User
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date

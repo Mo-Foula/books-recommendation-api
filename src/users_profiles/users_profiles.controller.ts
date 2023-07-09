@@ -7,28 +7,28 @@ import { UpdateUsersProfileDto } from './dto/update-users_profile.dto';
 export class UsersProfilesController {
   constructor(private readonly usersProfilesService: UsersProfilesService) {}
 
-  @Post()
-  create(@Body() createUsersProfileDto: CreateUsersProfileDto) {
-    return this.usersProfilesService.create(createUsersProfileDto);
-  }
+  // @Post()
+  // create(@Body() createUsersProfileDto: CreateUsersProfileDto) {
+  //   return this.usersProfilesService.create(createUsersProfileDto);
+  // }
 
-  @Get()
-  findAll() {
-    return this.usersProfilesService.findAll();
-  }
+  // @Get()
+  // findAll() {
+  //   return this.usersProfilesService.findAll();
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersProfilesService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.usersProfilesService.findOne(+id);
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUsersProfileDto: UpdateUsersProfileDto) {
-    return this.usersProfilesService.update(+id, updateUsersProfileDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateUsersProfileDto: UpdateUsersProfileDto) {
+  //   return this.usersProfilesService.update(+id, updateUsersProfileDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersProfilesService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.usersProfilesService.remove(+id);
+  // }
 }

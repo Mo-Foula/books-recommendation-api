@@ -7,8 +7,8 @@ import * as dotenv from 'dotenv'
 import { AuthModule } from './auth/auth.module'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { UsersProfilesModule } from './users_profiles/users_profiles.module'
-import { BooksReadingsModule } from './books_readings/books_readings.module';
-import { CategoriesModule } from './categories/categories.module';
+import { BooksReadingsModule } from './books_readings/books_readings.module'
+import { CategoriesModule } from './categories/categories.module'
 
 dotenv.config()
 const {

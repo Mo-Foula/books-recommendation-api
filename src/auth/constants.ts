@@ -8,4 +8,4 @@ export const jwtConstants = {
   expiry: jwtExpiration,
 }
 
-export const canPassAuthGuards = ['/auth/login']
+export const canPassAuthGuards = ['/auth/login', '/auth/signup']

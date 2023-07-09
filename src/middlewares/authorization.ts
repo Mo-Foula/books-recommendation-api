@@ -1,7 +1,17 @@
-import { Injectable, NestMiddleware, Type, mixin } from '@nestjs/common'
-import { NextFunction } from 'express'
+import {
+  Injectable,
+  NestMiddleware,
+  Type,
+  UnauthorizedException,
+  mixin,
+} from '@nestjs/common'
+import { NextFunction, request } from 'express'
 import { AuthService } from 'src/auth/auth.service'
-import { BooksService } from 'src/books/books.service'
+import { canPassAuthGuards, jwtConstants } from 'src/auth/constants'
+import { ClaimActions } from 'src/auth/claims/constants'
+import { RequestExtended } from 'src/interfaces/request.interface.'
+import { Request } from 'express'
+import { JwtService } from '@nestjs/jwt'
 
 // export function authorizationMiddleware(data: any) {
 //   return (req: Request, res: Response, next: NextFunction) => {
@@ -26,34 +36,49 @@ export function AuthorizationMiddlewareCreator(
 ): Type<NestMiddleware> {
   @Injectable()
   class AuthorizationMiddleware implements NestMiddleware {
-    constructor(private readonly authService: AuthService) {}
+    constructor(
+      private readonly authService: AuthService,
+      private jwtService: JwtService,
+    ) {}
 
-    async use(req: Request, res: Response, next: NextFunction) {
-      const role = ''
-      const result = 2
-      // await this.authService.isRoleAuthorizedForClaim(
-      //   moduleName,
-      //   actions,
-      //   role,
-      // )
+    private async authorizeClaims(userId: number) {
+      const result = await this.authService.isRoleAuthorizedForClaim(
+        moduleName,
+        actions,
+        userId,
+      )
       return result
+    }
+
+    private async authorizeToken(token: string) {
+      return await this.jwtService.verifyAsync(token, {
+        secret: jwtConstants.secret,
+      })
+    }
+
+    private extractTokenFromHeader(request: Request): string | undefined {
+      const [type, token] = request.headers.authorization?.split(' ') ?? []
+      return type === 'Bearer' ? token : undefined
+    }
+
+    async use(req: RequestExtended, res: Response, next: NextFunction) {
+      if (canPassAuthGuards.indexOf(req.originalUrl) !== -1) return true
+      const token = this.extractTokenFromHeader(req)
+      if (!token) {
+        throw new UnauthorizedException()
+      }
+      try {
+        const payload = await this.authorizeToken(token)
+        request['user'] = payload
+        const authorizedClaims = await this.authorizeClaims(payload.userId)
+        if (!authorizedClaims) {
+          throw new UnauthorizedException()
+        }
+        next()
+      } catch {
+        throw new UnauthorizedException()
+      }
     }
   }
   return mixin(AuthorizationMiddleware)
 }
-
-// @Injectable()
-// export class AuthorizationMiddleware implements NestMiddleware {
-//   constructor(
-//     private readonly moduleName: string,
-//     private readonly actions: ClaimActions[],
-//     private readonly authService: AuthService,
-//   ) {}
-
-//   async use(req: Request, res: Response, next: NextFunction) {
-//     const role = ''
-//     const result = 2
-//     // await this.authService.isRoleAuthorizedForClaim(moduleName, actions, role)
-//     return result
-//   }
-// }

@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { User } from './entities/user.entity'
+import { Role } from '../roles/entities/role.entity'
 
 @Injectable()
 export class UsersService {
@@ -12,9 +13,24 @@ export class UsersService {
 
   private readonly logger = new Logger(UsersService.name)
 
-  async create(newUser: any) {
-    this.logger.log('Adding new book')
-    return this.usersRepository.create(newUser)
+  async create({
+    email,
+    password,
+    phone,
+    role,
+  }: {
+    email: string
+    phone: string
+    password: string
+    role: Role
+  }): Promise<User> {
+    this.logger.log('Adding new auth user')
+    return await this.usersRepository.save({
+      email,
+      phone,
+      password,
+      role,
+    })
   }
 
   async findAll(): Promise<User[]> {
@@ -26,8 +42,14 @@ export class UsersService {
     return this.usersRepository.findOneBy({ id })
   }
 
-  async findOneByEmail(email: string): Promise<User | null> {
-    return this.usersRepository.findOneBy({ email })
+  async findOneByEmailOrPhone({
+    email,
+    phone,
+  }: {
+    email?: string
+    phone?: string
+  }): Promise<User | null> {
+    return this.usersRepository.findOneBy({ email, phone })
   }
 
   async remove(id: number): Promise<void> {
