@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common'
 import { NextFunction, request } from 'express'
 import { AuthService } from 'src/auth/auth.service'
-import { canPassAuthGuards, jwtConstants } from 'src/auth/constants'
+import { canPassAuthGuards, jwtConstants } from 'src/auth/auth.constants'
 import { ClaimActions } from 'src/auth/claims/constants'
 import { RequestExtended } from 'src/interfaces/request.interface.'
 import { Request } from 'express'

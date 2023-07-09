@@ -1,0 +1,183 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "book-recommendation-api",
+    "dateExported": "2023-07-09T19:44:25.065Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "126dc861-c32a-4712-a2f6-53cab4ba1265",
+            "name": "books",
+            "containerId": "",
+            "created": "2023-07-04T09:33:19.818Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "a58b50ed-e4e8-476f-9ce8-6195caf3b3eb",
+            "name": "auth",
+            "containerId": "",
+            "created": "2023-07-07T00:14:02.708Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "b38cea99-ea45-41cc-a0a0-440323b6ac73",
+            "name": "authors",
+            "containerId": "",
+            "created": "2023-07-09T15:13:06.711Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "1744a3ef-ddc2-438d-b68f-693bc3ad579b",
+            "name": "books-readings",
+            "containerId": "",
+            "created": "2023-07-09T15:39:38.935Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "2f99cf8b-3d0a-4e2e-b294-d0199b3cf161",
+            "colId": "f1a6cc6b-26ae-4c46-a892-63442c520060",
+            "containerId": "126dc861-c32a-4712-a2f6-53cab4ba1265",
+            "name": "Find all",
+            "url": "{{base}}/books",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-07-04T09:34:02.762Z",
+            "modified": "2023-07-09T10:10:03.339Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9e58d57c-2e31-412e-a28c-8ce2f8b15d3a",
+            "colId": "f1a6cc6b-26ae-4c46-a892-63442c520060",
+            "containerId": "126dc861-c32a-4712-a2f6-53cab4ba1265",
+            "name": "Find one",
+            "url": "",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-07-04T09:34:13.289Z",
+            "modified": "2023-07-04T09:34:13.289Z",
+            "headers": []
+        },
+        {
+            "_id": "4cb8768e-6061-4268-814b-db47a3868276",
+            "colId": "f1a6cc6b-26ae-4c46-a892-63442c520060",
+            "containerId": "126dc861-c32a-4712-a2f6-53cab4ba1265",
+            "name": "Create",
+            "url": "{{base}}/books",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-07-04T09:34:21.208Z",
+            "modified": "2023-07-09T19:42:52.752Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"The Blackest Day\",\n  \"authorId\": 2,\n  \"numberOfPages\": 606\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksInVzZXJuYW1lIjoib2s3IiwiaWF0IjoxNjg4ODYyNzEzLCJleHAiOjE2ODg5NDkxMTN9.Xn7lJtHTap-0W9mEtdQbNbAjSr0PfohrtA6OTmd31Fw"
+            },
+            "tests": []
+        },
+        {
+            "_id": "d82f5239-5c6b-48a2-b35a-b7dba8acd7b5",
+            "colId": "f1a6cc6b-26ae-4c46-a892-63442c520060",
+            "containerId": "126dc861-c32a-4712-a2f6-53cab4ba1265",
+            "name": "Update",
+            "url": "",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-07-04T09:34:26.152Z",
+            "modified": "2023-07-04T09:34:26.152Z",
+            "headers": []
+        },
+        {
+            "_id": "5edfcea8-206f-4faf-8fda-48f1c78645cb",
+            "colId": "f1a6cc6b-26ae-4c46-a892-63442c520060",
+            "containerId": "a58b50ed-e4e8-476f-9ce8-6195caf3b3eb",
+            "name": "login",
+            "url": "{{base}}/auth/login",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-07-07T00:14:13.977Z",
+            "modified": "2023-07-09T15:21:22.475Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"reader\",\n  \"password\": \"notok\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "93755a0e-8448-48c7-a1d1-d08571a12d8d",
+            "colId": "f1a6cc6b-26ae-4c46-a892-63442c520060",
+            "containerId": "a58b50ed-e4e8-476f-9ce8-6195caf3b3eb",
+            "name": "signup",
+            "url": "{{base}}/auth/signup",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-07-08T21:01:04.400Z",
+            "modified": "2023-07-09T15:19:36.228Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"reader\",\n  \"password\": \"notok\",\n  \"phone\": \"09\",\n  \"firstName\": \"Mo\",\n  \"lastName\": \"Fo\",\n  \"gender\": \"male\",\n  \"address\": \"miami\",\n  \"birthDate\": \"01-01-2023\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6fe2bc2e-695f-4ef9-8cde-63935ea15a88",
+            "colId": "f1a6cc6b-26ae-4c46-a892-63442c520060",
+            "containerId": "b38cea99-ea45-41cc-a0a0-440323b6ac73",
+            "name": "create",
+            "url": "{{base}}/authors",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2023-07-09T15:13:12.364Z",
+            "modified": "2023-07-09T15:25:15.448Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"name\": \"Lana\",\r\n  \"birthDate\": \"06-21-1985\",\r\n  \"gender\": \"female\"\r\n}\r\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InJlYWRlciIsImlhdCI6MTY4ODkxNjA4MiwiZXhwIjoxNjg5MDAyNDgyfQ.se6c1RScPF8g0DyarPYcNE6koi5_HyjmldACDHKLERQ"
+            },
+            "tests": []
+        },
+        {
+            "_id": "404196db-58f0-4a7a-9dc3-cc820ba1a007",
+            "colId": "f1a6cc6b-26ae-4c46-a892-63442c520060",
+            "containerId": "1744a3ef-ddc2-438d-b68f-693bc3ad579b",
+            "name": "create",
+            "url": "{{base}}/books-readings",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2023-07-09T15:39:47.549Z",
+            "modified": "2023-07-09T16:18:41.888Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"book_id\": 8,\n  \"start_page\": 1,\n  \"end_page\": 10\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{reader-token}}"
+            },
+            "tests": []
+        }
+    ]
+}

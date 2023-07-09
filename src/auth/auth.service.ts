@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { arrayToObject } from 'src/utils/array.to.object'
+import { arrayToObject } from 'src/utils/array.to.object.utils'
 import { Repository } from 'typeorm'
 import { Role } from './roles/entities/role.entity'
 import { UsersService } from './users/users.service'
@@ -18,8 +18,6 @@ dotenv.config()
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(Role)
-    private readonly rolesRepository: Repository<Role>,
     private rolesService: RolesService,
     private usersService: UsersService,
     private usersProfilesService: UsersProfilesService,
@@ -34,25 +32,11 @@ export class AuthService {
     userId: number,
   ) {
     if (actions.length === 0) return true
-    const claimActions = arrayToObject(actions)
-
-    const isAuthorized = await this.rolesRepository.findOne({
-      where: {
-        users: {
-          id: userId,
-        },
-        claims: {
-          moduleName,
-          ...claimActions,
-        },
-      },
-    })
-
-    return isAuthorized ? true : false
-  }
-
-  async authenticateUser() {
-    return 's'
+    return this.rolesService.isUserAuthorizedForClaim(
+      moduleName,
+      actions,
+      userId,
+    )
   }
 
   async login(signInUserDto: SignInUserDto) {

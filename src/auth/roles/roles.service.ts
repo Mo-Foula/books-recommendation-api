@@ -4,6 +4,8 @@ import { UpdateRoleDto } from './dto/update-role.dto'
 import { Role } from './entities/role.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { ClaimActions } from '../claims/constants'
+import { arrayToObject } from 'src/utils/array.to.object.utils'
 
 @Injectable()
 export class RolesService {
@@ -30,6 +32,27 @@ export class RolesService {
         name: roleName,
       },
     })
+  }
+
+  async isUserAuthorizedForClaim(
+    moduleName: string,
+    actions: ClaimActions[],
+    userId: number,
+  ) {
+    const claimActions = arrayToObject(actions)
+    const isAuthorized = await this.rolesRepository.findOne({
+      where: {
+        users: {
+          id: userId,
+        },
+        claims: {
+          moduleName,
+          ...claimActions,
+        },
+      },
+    })
+
+    return isAuthorized ? true : false
   }
 
   async update(id: number, updateRoleDto: UpdateRoleDto) {

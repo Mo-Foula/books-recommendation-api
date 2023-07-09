@@ -1,4 +1,4 @@
-import { Author } from 'src/authors/entities/author.entity'
+import { Book } from 'src/books/entities/book.entity'
 import { Category } from 'src/categories/entities/category.entity'
 import {
   Entity,
@@ -6,28 +6,25 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   JoinTable,
-  ManyToOne,
+  OneToMany,
 } from 'typeorm'
 
 @Entity()
-export class Book {
+export class Author {
   @PrimaryGeneratedColumn()
   id: number
 
   @Column()
   name: string
 
+  @Column({ type: 'date' })
+  birthDate: Date
+
+  @OneToMany(() => Book, (book) => book.author)
+  books: Book[]
+
   @Column()
-  numberOfPages: number
-
-  @ManyToMany(() => Category)
-  @JoinTable({
-    name: 'books_categories',
-  })
-  categories: Category[]
-
-  @ManyToOne(() => Author, (author) => author.books)
-  author: Author
+  gender: string
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date
