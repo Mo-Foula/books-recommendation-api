@@ -1,4 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateBooksRecommendationDto } from './create-books_recommendation.dto';
+import { PartialType } from '@nestjs/mapped-types'
+import { CreateBooksRecommendationDto } from './create-books_recommendation.dto'
 
-export class UpdateBooksRecommendationDto extends PartialType(CreateBooksRecommendationDto) {}
+export class UpdateBooksRecommendationDto extends PartialType(
+  CreateBooksRecommendationDto,
+) {}

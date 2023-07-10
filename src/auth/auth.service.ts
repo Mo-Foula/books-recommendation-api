@@ -1,8 +1,4 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { arrayToObject } from 'src/utils/array.to.object.utils'
-import { Repository } from 'typeorm'
-import { Role } from './roles/entities/role.entity'
 import { UsersService } from './users/users.service'
 import { JwtService } from '@nestjs/jwt'
 import { SignInUserDto } from './dto/sign-in-user.dto'

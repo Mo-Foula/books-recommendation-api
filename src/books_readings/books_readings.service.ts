@@ -1,6 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common'
 import { CreateBooksReadingDto } from './dto/create-books_reading.dto'
-import { UpdateBooksReadingDto } from './dto/update-books_reading.dto'
 import { BooksReadings } from './entities/books_readings.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -76,7 +75,12 @@ export class BooksReadingsService {
       .orderBy('total_pages', 'DESC')
       .limit(5)
       .getRawMany()
-    return result
+    return result.map((result) => {
+      return {
+        ...result,
+        total_pages: parseInt(result.total_pages),
+      }
+    })
     // const result = await this.BooksReadingsRepository.createQueryBuilder(
     //   'books_readings',
     // )
@@ -92,15 +96,15 @@ export class BooksReadingsService {
     // return result
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} booksReading`
-  }
+  // findOne(id: number) {
+  //   return `This action returns a #${id} booksReading`
+  // }
 
-  update(id: number, updateBooksReadingDto: UpdateBooksReadingDto) {
-    return `This action updates a #${id} booksReading`
-  }
+  // update(id: number, updateBooksReadingDto: UpdateBooksReadingDto) {
+  //   return `This action updates a #${id} booksReading`
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} booksReading`
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} booksReading`
+  // }
 }

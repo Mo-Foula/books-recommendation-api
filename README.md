@@ -48,6 +48,3 @@ There's a sample version .env file which contains all the required environment v
 <li> Password encryption salt 
 </ul>
 
-
-## Psad
-asd

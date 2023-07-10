@@ -8,7 +8,7 @@ export class BooksRecommendationsService {
     private readonly booksService: BooksService,
     private readonly booksReadingsService: BooksReadingsService,
   ) {}
-  getRecommendationsByMostRead() {
+  async getRecommendationsByMostRead() {
     return this.booksReadingsService.getRecommendationsByMostRead()
   }
 }

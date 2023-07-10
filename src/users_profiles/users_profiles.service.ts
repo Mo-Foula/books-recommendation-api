@@ -1,18 +1,14 @@
 import { Injectable } from '@nestjs/common'
-import { CreateUsersProfileDto } from './dto/create-users_profile.dto'
-import { UpdateUsersProfileDto } from './dto/update-users_profile.dto'
 import { SignUpUserDto } from 'src/auth/dto/sign-up-user.dto'
 import { UsersProfiles } from './entities/users_profiles.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { UsersService } from 'src/auth/users/users.service'
 
 @Injectable()
 export class UsersProfilesService {
   constructor(
     @InjectRepository(UsersProfiles)
     private usersProfilesRepository: Repository<UsersProfiles>,
-    private usersService: UsersService,
   ) {}
 
   async create(signUpUserDto: SignUpUserDto, authUserId: number) {
@@ -40,11 +36,11 @@ export class UsersProfilesService {
     })
   }
 
-  update(id: number, updateUsersProfileDto: UpdateUsersProfileDto) {
-    return `This action updates a #${id} usersProfile`
-  }
+  // update(id: number, updateUsersProfileDto: UpdateUsersProfileDto) {
+  //   return `This action updates a #${id} usersProfile`
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} usersProfile`
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} usersProfile`
+  // }
 }

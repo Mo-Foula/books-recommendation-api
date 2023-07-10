@@ -1,11 +1,5 @@
 import { Role } from 'src/auth/roles/entities/role.entity'
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm'
 
 @Entity()
 export class Claim {

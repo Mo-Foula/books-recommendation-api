@@ -9,8 +9,8 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { UsersProfilesModule } from './users_profiles/users_profiles.module'
 import { BooksReadingsModule } from './books_readings/books_readings.module'
 import { CategoriesModule } from './categories/categories.module'
-import { AuthorsModule } from './authors/authors.module';
-import { BooksRecommendationsModule } from './books_recommendations/books_recommendations.module';
+import { AuthorsModule } from './authors/authors.module'
+import { BooksRecommendationsModule } from './books_recommendations/books_recommendations.module'
 
 dotenv.config()
 const {
