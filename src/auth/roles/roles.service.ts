@@ -26,7 +26,7 @@ export class RolesService {
     return `This action returns a #${id} role`
   }
 
-  async findOneByRoleName(roleName: string) {
+  async findOneByRoleName(roleName: string): Promise<Role | undefined> {
     return await this.rolesRepository.findOne({
       where: {
         name: roleName,

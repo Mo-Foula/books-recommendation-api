@@ -64,18 +64,32 @@ export class BooksReadingsService {
 
   async getRecommendationsByMostRead() {
     const result = await this.BooksReadingsRepository.createQueryBuilder(
-      'books_readings',
+      'BooksReadings',
     )
-      // .leftJoinAndSelect('books_readings.book', 'books')
-      .select([
-        'books_readings.book_id',
-        'SUM(books_readings.pages_count) as total_pages',
-      ])
-      .groupBy('books_readings.book_id')
+      .leftJoinAndSelect('BooksReadings.book', 'book')
+      .leftJoinAndSelect('book.author', 'author')
+      .select(['SUM(BooksReadings.pages_count) as total_pages'])
+      .addSelect('book.name')
+      .addSelect('book.numberOfPages')
+      .addSelect('author.name')
+      .groupBy('BooksReadings.book_id, book.id, author.id')
       .orderBy('total_pages', 'DESC')
-      .take(5)
+      .limit(5)
       .getRawMany()
     return result
+    // const result = await this.BooksReadingsRepository.createQueryBuilder(
+    //   'books_readings',
+    // )
+    //   // .select('*')
+    //   .addSelect('book.name')
+    //   .addSelect('book.numberOfPages')
+    //   .addSelect('SUM(books_readings.pagesCount)', 'total_pages')
+    //   .groupBy('books_readings.book_id, book.id, books_readings.id')
+    //   .orderBy('total_pages', 'DESC')
+    //   .take(5)
+    //   .leftJoin('books_readings.book', 'book')
+    //   .getMany()
+    // return result
   }
 
   findOne(id: number) {
