@@ -23,6 +23,23 @@ The following command can be used to create a Docker Container.
 docker-compose up -d 
 ```
 
+### Database
+It is recommended to import the database dump found.
+The one that worked for me was the tar dump (dump-book-recommendation-202307112137.tar).
+This dump has some roles and claims so that the application becomes easier to be tested.
+
+users credentials:
+readers:
+  email: reader
+  pass: notok
+
+  email: ok7
+  pass: notok
+
+admin_books:
+  email: books-admin
+  pass: notok
+
 ### NPM commands
 This project was built using TypeScript enforces us to build the project before running (for production version)
 To build the project.
