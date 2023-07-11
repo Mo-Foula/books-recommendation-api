@@ -1,18 +1,28 @@
 _type: export
 __export_format: 4
-__export_date: 2023-07-10T15:13:45.867Z
+__export_date: 2023-07-11T19:18:11.006Z
 __export_source: insomnia.desktop.app:v2023.2.0
 resources:
   - _id: req_6e6d306031574e7e8da2daa196ff5461
     parentId: fld_97beef2c6bd94784bb60bab89e6e38a9
-    modified: 1688940895915
+    modified: 1689102886460
     created: 1688940870656
     url: "{{base}}/books-recommendations"
-    name: New Request
+    name: Get recommendations
     description: ""
     method: GET
     body: {}
-    parameters: []
+    parameters:
+      - id: pair_f3fc6baa272b49b3b0a70433424d8a69
+        name: limit
+        value: "4"
+        description: ""
+        disabled: false
+      - id: pair_f8689c62c6994cdcaca271db23b3da5d
+        name: page
+        value: "1"
+        description: ""
+        disabled: false
     headers: []
     authentication:
       type: bearer
@@ -56,7 +66,7 @@ resources:
     _type: workspace
   - _id: req_b27165acba304e3ab0634e95f15617e1
     parentId: fld_6270756a0dcd48938bfe2643ff7e917b
-    modified: 1688993116726
+    modified: 1689099842767
     created: 1688932292030
     url: "{{base}}/books-readings"
     name: create
@@ -66,9 +76,9 @@ resources:
       mimeType: application/json
       text: |-
         {
-          "book_id": 3,
-          "start_page": 1,
-          "end_page": 2
+          "book_id": 12,
+          "start_page": 6,
+          "end_page": 7
         }
     parameters: []
     headers:
@@ -189,7 +199,7 @@ resources:
     _type: request_group
   - _id: req_7662c213b83a45ff8f31447ee5a588f4
     parentId: fld_40af4e9a1cef4cb8bb0498837392b974
-    modified: 1688938807214
+    modified: 1689099679829
     created: 1688932292021
     url: "{{base}}/auth/login"
     name: login
@@ -226,37 +236,6 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_71cd1746df584fd7bf702e6ec231be14
-    parentId: fld_dfc6d2a71743411d9259b78125aab950
-    modified: 1688932292017
-    created: 1688932292017
-    url: ""
-    name: Update
-    description: ""
-    method: GET
-    body: {}
-    parameters: []
-    headers: []
-    authentication: {}
-    metaSortKey: -1688932292017
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: fld_dfc6d2a71743411d9259b78125aab950
-    parentId: fld_05d65b1b90db4f0abc244ac0a3b77509
-    modified: 1688932292010
-    created: 1688932292010
-    name: books
-    description: ""
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1688932292010
-    _type: request_group
   - _id: req_1ea048a3d9dd442aadd73d803ce84f28
     parentId: fld_dfc6d2a71743411d9259b78125aab950
     modified: 1688938307495
@@ -291,27 +270,16 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_2861e4c1762d448e8d99d24c667b7d55
-    parentId: fld_dfc6d2a71743411d9259b78125aab950
-    modified: 1688932292014
-    created: 1688932292014
-    url: ""
-    name: Find one
+  - _id: fld_dfc6d2a71743411d9259b78125aab950
+    parentId: fld_05d65b1b90db4f0abc244ac0a3b77509
+    modified: 1688932292010
+    created: 1688932292010
+    name: books
     description: ""
-    method: GET
-    body: {}
-    parameters: []
-    headers: []
-    authentication: {}
-    metaSortKey: -1688932292014
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1688932292010
+    _type: request_group
   - _id: req_998793e88d9a46788ca31d8105b0cb6b
     parentId: fld_dfc6d2a71743411d9259b78125aab950
     modified: 1688993053160
@@ -337,7 +305,7 @@ resources:
     _type: request
   - _id: env_7803882597777d4a5ea5874c3163d82342e10696
     parentId: wrk_6928c7b761f9485eaa9f94bbb92eeecd
-    modified: 1688938816755
+    modified: 1689099703248
     created: 1688932292051
     name: Base Environment
     data:
@@ -346,8 +314,8 @@ resources:
       reader-email2: ok7
       books-admin-email: books-admin
       admin-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJ1c2VybmFtZSI6ImJvb2tzLWFkbWluIiwiaWF0IjoxNjg4OTM3NDg4LCJleHAiOjE2ODkwMjM4ODh9.1YBKcIJCTLoo32mzJhRK7n25MnaI7g6efgScqsWTbtI
-      reader-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InJlYWRlciIsImlhdCI6MTY4ODkzMjkzNiwiZXhwIjoxNjg5MDE5MzM2fQ.-Zeg_2z1ORx-6bc0GBUXq-YfE_N4kWyJT8yAHvglEdY
-      reader-token2: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksInVzZXJuYW1lIjoib2s3IiwiaWF0IjoxNjg4OTM4ODA4LCJleHAiOjE2ODkwMjUyMDh9.Qmt-QFxD2IDws5Qee1wzlj6RLRhrxgkCVc6fSoPskZU
+      reader-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InJlYWRlciIsImlhdCI6MTY4OTA4ODkxMywiZXhwIjoxNjg5MTc1MzEzfQ.yeyYrhG7Sry9kF-mgXavhs5Q5g7K98z9hVUYgxYRSRg
+      reader-token2: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksInVzZXJuYW1lIjoib2s3IiwiaWF0IjoxNjg5MDk5NjgwLCJleHAiOjE2ODkxODYwODB9.JgGJGYgwDOzthwWtXq8ikO9NsG55XiDXmFGnHyIX1JM
     dataPropertyOrder:
       "&":
         - base

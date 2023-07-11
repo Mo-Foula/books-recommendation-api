@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common'
+import { HttpStatus, Inject, Injectable, forwardRef } from '@nestjs/common'
 import { CreateBooksReadingDto } from './dto/create-books_reading.dto'
 import { BooksReadings } from './entities/books_readings.entity'
 import { InjectRepository } from '@nestjs/typeorm'
@@ -6,14 +6,19 @@ import { Repository } from 'typeorm'
 import { BooksService } from 'src/books/books.service'
 import { CustomRequestException } from 'src/exceptions/custom.request.exceptions'
 import { UsersProfilesService } from 'src/users_profiles/users_profiles.service'
+import { Book } from 'src/books/entities/book.entity'
+import { UsersProfiles } from 'src/users_profiles/entities/users_profiles.entity'
+import { UsersBooksReadingsService } from 'src/users_books_readings/users_books_readings.service'
 
 @Injectable()
 export class BooksReadingsService {
   constructor(
     @InjectRepository(BooksReadings)
-    private BooksReadingsRepository: Repository<BooksReadings>,
+    private booksReadingsRepository: Repository<BooksReadings>,
     private booksService: BooksService,
     private usersProfilesService: UsersProfilesService,
+    @Inject(forwardRef(() => UsersBooksReadingsService))
+    private usersBooksReadingsService: UsersBooksReadingsService,
   ) {}
 
   async create(createBooksReadingDto: CreateBooksReadingDto, userId: number) {
@@ -42,69 +47,48 @@ export class BooksReadingsService {
 
     const userProfile = await this.usersProfilesService.findOneByAuthId(userId)
 
-    return this.BooksReadingsRepository.save({
-      pagesCount,
-      book,
-      firstPage: createBooksReadingDto.start_page,
-      user: userProfile,
-    })
-  }
+    let result: BooksReadings | undefined
+    try {
+      result = await this.booksReadingsRepository.save({
+        pagesCount,
+        book,
+        firstPage: createBooksReadingDto.start_page,
+        user: userProfile,
+      })
+    } catch {
+      throw new CustomRequestException('Could not create book reading', 422)
+    }
 
-  async findAll() {
-    const result = await this.BooksReadingsRepository.createQueryBuilder(
-      'booksRecommendations',
-    )
-      .select('booksRecommendations.number_of_pages')
-      // .addSelect('COUNT(entity.column2)', 'count')
-      .groupBy('booksRecommendations.id')
-      .getRawMany()
+    try {
+      await this.usersBooksReadingsService.updateUserUniqueBookReadings({
+        user: userProfile,
+        book,
+      })
+    } catch {
+      // Rollback
+      this.booksReadingsRepository.delete(result?.id)
+      throw new CustomRequestException('Could not update user reading', 422)
+    }
+
     return result
   }
 
-  async getRecommendationsByMostRead() {
-    const result = await this.BooksReadingsRepository.createQueryBuilder(
-      'BooksReadings',
-    )
-      .leftJoinAndSelect('BooksReadings.book', 'book')
-      .leftJoinAndSelect('book.author', 'author')
-      .select(['SUM(BooksReadings.pages_count) as total_pages'])
-      .addSelect('book.name')
-      .addSelect('book.numberOfPages')
-      .addSelect('author.name')
-      .groupBy('BooksReadings.book_id, book.id, author.id')
-      .orderBy('total_pages', 'DESC')
-      .limit(5)
-      .getRawMany()
-    return result.map((result) => {
-      return {
-        ...result,
-        total_pages: parseInt(result.total_pages),
-      }
+  async findAll(filter: { user?: UsersProfiles; book?: Book } = {}) {
+    const { user, book } = filter
+    const result = await this.booksReadingsRepository.find({
+      where: {
+        user: {
+          id: user.id,
+        },
+        book: {
+          id: book.id,
+        },
+      },
+      relations: {
+        user: true,
+        book: true,
+      },
     })
-    // const result = await this.BooksReadingsRepository.createQueryBuilder(
-    //   'books_readings',
-    // )
-    //   // .select('*')
-    //   .addSelect('book.name')
-    //   .addSelect('book.numberOfPages')
-    //   .addSelect('SUM(books_readings.pagesCount)', 'total_pages')
-    //   .groupBy('books_readings.book_id, book.id, books_readings.id')
-    //   .orderBy('total_pages', 'DESC')
-    //   .take(5)
-    //   .leftJoin('books_readings.book', 'book')
-    //   .getMany()
-    // return result
+    return result
   }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} booksReading`
-  // }
-
-  // update(id: number, updateBooksReadingDto: UpdateBooksReadingDto) {
-  //   return `This action updates a #${id} booksReading`
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} booksReading`
-  // }
 }

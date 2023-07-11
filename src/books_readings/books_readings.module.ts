@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
+import {
+  MiddlewareConsumer,
+  Module,
+  RequestMethod,
+  forwardRef,
+} from '@nestjs/common'
 import { BooksReadingsService } from './books_readings.service'
 import { BooksReadingsController } from './books_readings.controller'
 import { AuthModule } from 'src/auth/auth.module'
@@ -12,6 +17,7 @@ import { ClaimActions } from 'src/auth/claims/constants'
 import { AuthorizationMiddlewareCreator } from 'src/middlewares/authorization'
 import { BooksModule } from 'src/books/books.module'
 import { UsersProfilesModule } from 'src/users_profiles/users_profiles.module'
+import { UsersBooksReadingsModule } from 'src/users_books_readings/users_books_readings.module'
 
 @Module({
   imports: [
@@ -19,6 +25,7 @@ import { UsersProfilesModule } from 'src/users_profiles/users_profiles.module'
     AuthModule,
     BooksModule,
     UsersProfilesModule,
+    forwardRef(() => UsersBooksReadingsModule),
   ],
   controllers: [BooksReadingsController],
   providers: [BooksReadingsService],

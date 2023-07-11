@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common'
-import { BooksService } from 'src/books/books.service'
-import { BooksReadingsService } from 'src/books_readings/books_readings.service'
+import { PaginationDto } from 'src/constants/dto/pagination.dto'
+import { UsersBooksReadingsService } from 'src/users_books_readings/users_books_readings.service'
 
 @Injectable()
 export class BooksRecommendationsService {
   constructor(
-    private readonly booksService: BooksService,
-    private readonly booksReadingsService: BooksReadingsService,
+    private readonly usersBooksReadingsService: UsersBooksReadingsService,
   ) {}
-  async getRecommendationsByMostRead() {
-    return this.booksReadingsService.getRecommendationsByMostRead()
+  async getRecommendationsByMostRead(paginationDto: PaginationDto) {
+    return this.usersBooksReadingsService.getRecommendationsByMostReadUniquePages(
+      paginationDto,
+    )
   }
 }
