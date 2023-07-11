@@ -2,7 +2,7 @@
 
 This project is a book recommendation system that allows users to add the pages of books that they read and the system could recommend the most trending books based on the most read books.
 
-This API is still under development, but it is built on role-based authorization which makes us it scalable for building admin panels.
+This API is still under development, but it is built on role-based authorization which makes it scalable for building admin panels.
 
 ## Steps to run
 ### Environment Variables
