@@ -1,6 +1,8 @@
 # Book Recommendations API
 
 This project is a book recommendation system that allows users to add the pages of books that they read and the system could recommend the most trending books based on the most read books.
+
+This API is still under development, but it is built on role-based authorization which makes us it scalable for building admin panels.
 ## Steps to run
 ### Environment Variables
 First create a .env file and add the needed environment variables to it.
@@ -47,21 +49,38 @@ To format the project.
 npm run format
 ```
 
+## APIs
+All APIs are found in the insomnia package called book-recommendation-api-package.json provided in the root folder
+### auth/signup
+This endpoint has no authorization and any user can register himself
+
+### auth/login
+User must login to generate a bearer access token in order to do actions that require authorization
+
+### books-readings
+User can submit a reading (book id, first page, last page)
+User ID is not not sent through the API, instead we get it from the access token so that each user can only submit his readings
+
+### books-recommendations
+User can get a list of books recommended for reading based on most unique pages read by each user in the system.
+This endpoint has pagination which can be passed through query parameters (limit and page).
+The default pagination value is: limit = 5, page = 1
+
 ## Future work
 ### Technical
 <ul>
 <li> Unit tests.
 <li> Validating requests body middleware.
 <li> Decoupling of system layers.
-<li> Administrator user profile.
-<li> Complete incomplete modules.
+<li> Create migrations instead of Typeorm sync.
 </ul>
 
 ### Business
 <ul>
 <li> Add pagination and filteration to endpoints.
-<li> Better recommendation system based on the percentage of book read and how many people read it.
 <li> More functionality based on authors and categories modules.
+<li> Complete incomplete modules.
+<li> Administrator user profile.
 </ul>
 
 

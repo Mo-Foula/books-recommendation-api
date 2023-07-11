@@ -11,6 +11,7 @@ import { BooksReadingsModule } from './books_readings/books_readings.module'
 import { CategoriesModule } from './categories/categories.module'
 import { AuthorsModule } from './authors/authors.module'
 import { BooksRecommendationsModule } from './books_recommendations/books_recommendations.module'
+import { UsersBooksReadingsModule } from './users_books_readings/users_books_readings.module'
 
 dotenv.config()
 const {
@@ -41,6 +42,7 @@ const {
     CategoriesModule,
     AuthorsModule,
     BooksRecommendationsModule,
+    UsersBooksReadingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
