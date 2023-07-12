@@ -1,4 +1,4 @@
-# Book Recommendations API
+# Book Recommendations API in Nest.js
 
 This project is a book recommendation system that allows users to add the pages of books that they read and the system could recommend the most trending books based on the most read books.
 
