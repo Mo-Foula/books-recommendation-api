@@ -79,6 +79,8 @@ User must login to generate a bearer access token in order to do actions that re
 User can submit a reading (book id, first page, last page)
 User ID is not not sent through the API, instead we get it from the access token so that each user can only submit his readings
 
+Upon inserting, the user's unique book readings are updated using problem-solving partial sum technique.
+
 ### books-recommendations
 User can get a list of books recommended for reading based on most unique pages read by each user in the system.
 This endpoint has pagination which can be passed through query parameters (limit and page).
